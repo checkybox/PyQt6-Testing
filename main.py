@@ -1,68 +1,22 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QGridLayout, QWidget
-from PyQt6.QtGui import QIcon, QPixmap
-from PyQt6.QtCore import Qt
-import os
+from design import Ui_MainWindow
+from PyQt6.QtWidgets import QApplication, QMainWindow
+
+class Window(QMainWindow, Ui_MainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+
+        self.pushButton.clicked.connect(self.clickHandler)
+    
+    def clickHandler(self):
+        print("Clicked!")
+        entered_task = self.lineEdit.text() # Get text from lineEdit
+        if entered_task.strip() != "": # Check if lineEdit is not empty
+            self.listWidget.addItem(entered_task) # Submits a task
+            self.lineEdit.setText("") # Clears the lineEdit widget after submitting a task
 
 app = QApplication([])
-window = QMainWindow()
-
-# Setting up window properties
-
-window.setMinimumSize(400,300)
-window.setWindowTitle("Welcome to Qt!")
-#window.setWindowIcon(QIcon(f"{os.getcwd()}/assets/qt_icon.png"))
-
-# Adding widgets
-
-# label = QLabel("Some text here", alignment=Qt.AlignmentFlag.AlignCenter)
-# font = window.font() # get a font object
-# font.setPointSize(18) # change font size
-# font.setBold(True) # make font bold
-# label.setFont(font) # assign font to a label
-
-# button = QPushButton("Click Me")
-# font = window.font()
-# font.setPointSize(36)
-# font.setBold(True)
-# button.setFont(font)
-# window.setCentralWidget(button) # make button centered
-
-# parentLayout = QVBoxLayout()
-
-# buttonLayout = QHBoxLayout()
-
-# button1 = QPushButton("Click Me!")
-# button2 = QPushButton("Don't click...")
-# buttonLayout.addWidget(button1)
-# buttonLayout.addWidget(button2)
-
-# parentLayout.addLayout(buttonLayout)
-
-# label = QLabel("Sample Text")
-# parentLayout.addWidget(label)
-
-# centerWidget = QWidget()
-# centerWidget.setLayout(parentLayout)
-
-# window.setCentralWidget(centerWidget)
-
-parentLayout = QGridLayout()
-
-label1 = QLabel("This is button 1.", alignment=Qt.AlignmentFlag.AlignCenter)
-# label2 = QLabel("This is button 2.", alignment=Qt.AlignmentFlag.AlignCenter)
-parentLayout.addWidget(label1, 0, 0, 1, 2)
-# parentLayout.addWidget(label2,0,1)
-
-button1 = QPushButton("Button 1")
-button2 = QPushButton("Button 2")
-parentLayout.addWidget(button1, 1, 0)
-parentLayout.addWidget(button2, 1, 1)
-parentLayout.setRowMinimumHeight(1, 50)
-
-centerWidget = QWidget()
-centerWidget.setLayout(parentLayout)
-
-window.setCentralWidget(centerWidget)
+window = Window()
 
 window.show()
 app.exec()
