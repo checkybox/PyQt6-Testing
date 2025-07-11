@@ -1,28 +1,35 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QInputDialog
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QFontDialog, QLabel, QVBoxLayout, QWidget
 
 class Window(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setMinimumSize(400, 400)
+        self.setMinimumSize(200, 200)
+
+        parentLayout = QVBoxLayout()
+
+        self.label = QLabel("This is a label")
         self.button = QPushButton("Open Dialog")
-        self.setCentralWidget(self.button)
+        parentLayout.addWidget(self.label)
+        parentLayout.addWidget(self.button)
+
+        centerWidget = QWidget()
+        centerWidget.setLayout(parentLayout)
+        self.setCentralWidget(centerWidget)
 
         self.button.clicked.connect(self.clickHandler)
 
     def clickHandler(self):
-        dialog = QInputDialog()
-        dialog.setLabelText("Enter your age: ")
-        dialog.setInputMode(QInputDialog.InputMode.IntInput)
+        dialog = QFontDialog()
 
-        clickedButton = dialog.exec()
-
-        if clickedButton:
-            print(dialog.intValue())
+        clickedOk = dialog.exec()
+        if clickedOk:
+            self.label.setFont(dialog.currentFont())
+            print("Changed font!")
+            print(dialog.currentFont().family())
         else:
-            print("nah")
+            print("Discarded")
 
-        print(dialog.textValue())
 
 app = QApplication([])
 window = Window()
