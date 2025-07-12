@@ -1,5 +1,7 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QGridLayout, QLabel, QFontDialog, QColorDialog
-from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QGridLayout, QLabel, QFontDialog, QColorDialog # core
+from PyQt6.QtCore import Qt # for text alignment
+from PyQt6.QtGui import QIcon # for Niko app icon
+import os
 
 class mainWindow(QMainWindow):
     def __init__(self):
@@ -7,6 +9,7 @@ class mainWindow(QMainWindow):
 
         self.setMinimumSize(400, 400)
         self.setWindowTitle("I wrote this myself trust me")
+        self.setWindowIcon(QIcon(f"{os.getcwd()}/assets/niko_on_a_vacuum.jpg"))
 
         parentLayout = QGridLayout()
 
