@@ -27,6 +27,7 @@ class mainWindow(QMainWindow):
         centerWidget.setLayout(parentLayout)
         self.setCentralWidget(centerWidget)
 
+
     def fontDialogHandler(self):
         fontDialog = QFontDialog()
 
@@ -37,6 +38,7 @@ class mainWindow(QMainWindow):
             self.fontLabel.setFont(fontDialog.currentFont())
         else:
             print("cancelled")
+
 
     def colorDialogHandler(self):
         colorDialog = QColorDialog()
